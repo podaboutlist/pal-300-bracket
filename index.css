@@ -1,0 +1,38 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 12pt;
+}
+
+/* 15 columns, 38 rows */
+.bracket-container {
+
+}
+
+.col {
+	display: flex;
+	flex-direction: column;
+	width: calc(100vw / 15);
+}
+
+.first-round-matchup {
+	padding: 1rem 0;
+
+	text-align: right;
+}
+
+.bracket-item {
+	padding: 2pt;
+	border-bottom: 2px solid #000;
+}
+
+.border-right .bracket-item:not(:first-of-type) {
+	border-right: 2px solid #000;
+}
+
+.four-entries {
+	flex-grow: 1;
+}
