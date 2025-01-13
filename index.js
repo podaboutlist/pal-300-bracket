@@ -22,7 +22,7 @@ let g_bracketStructure;
 		// seedID will be -1 for undeclared winner slots etc.
 		if (seedID > 0) {
 			const ed = getEpisodeDataFromSeed(seedID);
-			bis.innerHTML = `<a href="${ed['link']}" target="_blank">${ed['title']}</a>`;
+			bis.innerHTML = `<a href="${ed['link']}" target="_blank" rel="noopener">${ed['title']}</a>`;
 		} else {
 			bis.innerText = "tbd";
 		}
@@ -81,15 +81,23 @@ let g_bracketStructure;
 		return group;
 	}
 
-	const episodeData = await (await window.fetch("data/episodes.json")).json();
-	const bracketStructure = await (await window.fetch("data/structure.json")).json();
+	// Pass these options to fetch() calls so they work with <link rel="preload" as="fetch"> from the HTML
+	// https://stackoverflow.com/a/63814972/3722806
+	const fetchOpts = {
+		method: 'GET',
+		credentials: 'include',
+		mode: 'no-cors',
+	}
+
+	const episodeData = await (await window.fetch("data/episodes.json", fetchOpts)).json();
+	const bracketStructure = await (await window.fetch("data/structure.json", fetchOpts)).json();
 
 	// for testing
 	g_episodeData = episodeData;
 	g_bracketStructure = bracketStructure;
 
-	console.log(episodeData);
-	console.log(bracketStructure);
+	console.debug(episodeData);
+	console.debug(bracketStructure);
 
 	const leftBracketData = bracketStructure["141"]["entries"]["139"];
 	const rightBracketData = bracketStructure["141"]["entries"]["140"];
