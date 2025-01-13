@@ -136,4 +136,13 @@ let g_bracketStructure;
 	if (overallWinnerSID > 0) {
 		populateOverallWinner(overallWinnerSID);
 	}
+
+	// HACK: yeah this looks like cheeks on phones right now. let's make the alert
+	// look like cheeks too
+	// (use a small timeout so the page renders in first)
+	window.setTimeout(() => {
+		if (window.innerWidth < window.innerHeight || window.innerWidth < 1200) {
+			alert("hey what's up :D\n\nthis site kinda looks like butt on moble/small screens right now. sorry about that.\n\nanyway go ahead and hit \"OK\" just know you're gonna have to scroll around a bunch.\n\n\t—audrey");
+		}
+	}, 100);
 })();
