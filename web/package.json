@@ -20,12 +20,12 @@
   },
   "scripts": {
     "minify-json": "jq --version && cat src/data/episodes.json | jq -crM > dist/data/episodes.min.json && cat src/data/structure.json | jq -crM > dist/data/structure.min.json",
-    "minify-js": "uglifyjs --version && uglifyjs --warn src/index.js -o dist/index.min.js -c -m --source-map \"filename='index.min.js'\"",
+    "minify-js": "uglifyjs --version && uglifyjs -c -m --warn src/index.js -o dist/index.min.js",
     "minify-html": "html-minifier --version && html-minifier --input-dir src --output-dir dist --file-ext html --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --remove-empty-attributes --sort-attributes --sort-class-name",
     "minify-css": "lightningcss --version && lightningcss --minify --sourcemap --targets \">= 0.25%\" -o dist/index.min.css src/index.css && sed -i 's/sourceMappingURL=dist\\/index.min.css.map/sourceMappingURL=index.min.css.map/' dist/index.min.css",
     "copy-files": "cp -vr src/{img,favicon.ico} dist && cp -v .gitignore dist && cp -v ../{CNAME,LICENSE.txt} dist",
     "build": "concurrently --names \"json,js,html,css,copy\" --prefix-colors auto \"yarn run minify-json\" \"yarn run minify-js\" \"yarn run minify-html\" \"yarn run minify-css\" \"yarn run copy-files\"",
-    "clean": "echo \"[clean] rm -rf dist/*\" && rimraf -g dist/**/*.{css,js,json,html,map,ico,jpg}",
+    "clean": "mkdir -vp dist/img dist/data; echo \"[clean] rm -rf dist/*\" && rimraf -g dist/**/*.{css,js,json,html,map,ico,jpg} || true",
     "test": "echo 'ERROR: No tests defined!' && exit 1"
   },
   "devDependencies": {
