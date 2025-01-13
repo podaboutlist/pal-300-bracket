@@ -8,31 +8,62 @@ body {
 }
 
 /* 15 columns, 38 rows */
-.bracket-container {
+#bracket-container {
 
 }
 
-.col {
+#left-bracket {
 	display: flex;
 	flex-direction: column;
-	width: calc(100vw / 15);
 }
 
-.first-round-matchup {
-	padding: 1rem 0;
+.group {
+	display: flex;
+	flex-direction: row;
+}
 
-	text-align: right;
+.entries > .bracket-item:last-child {
+	margin-bottom: 2rem;
+}
+
+.entries > .bracket-item {
+	border-right: 1px solid #000;
+}
+
+.entries {
+	display: flex;
+	flex-direction: column;
+}
+
+.entries > .group:not(:first-child) .winner {
+	border-right: 1px solid #000;
+}
+
+.entries > .group:not(:last-child) .winner-whitespace {
+	border-right: 1px solid #000;
+}
+
+.winner {
+  align-content: end;
+}
+
+.winner, .winner-whitespace {
+	min-height: 50%;
+	height: 50%;
+	max-height: 50%;
 }
 
 .bracket-item {
+	width: calc(100vw / 15);
+
 	padding: 2pt;
+
 	border-bottom: 2px solid #000;
+
+	overflow-wrap: break-word;
+	hyphens: auto;
 }
 
-.border-right .bracket-item:not(:first-of-type) {
-	border-right: 2px solid #000;
-}
-
-.four-entries {
-	flex-grow: 1;
+.entries > .bracket-item:first-child {
+	border-top: 2px solid #000;
 }
