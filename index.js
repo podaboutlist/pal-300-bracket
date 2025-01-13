@@ -35,6 +35,7 @@ let g_bracketStructure;
 	function buildBracketStructure(roundData) {
 		console.debug("roundData is ", roundData);
 
+		// I'm sure I could template all this crap but idc (^:
 		const group = document.createElement("div");
 		group.classList.add("group");
 
@@ -56,7 +57,7 @@ let g_bracketStructure;
 
 		// deepest level is an array of seedIDs
 		if (Array.isArray(roundData["entries"])) {
-			console.debug("buildBracketStructure: building entries from seedID array");
+			console.debug("buildBracketStructure: building entries from seedID array", roundData["entries"]);
 
 			roundData["entries"].forEach((seedID) => {
 				entries.appendChild(createBracketItem(seedID));
@@ -93,9 +94,12 @@ let g_bracketStructure;
 	const leftBracketData = bracketStructure["141"]["entries"]["139"];
 	const rightBracketData = bracketStructure["141"]["entries"]["140"];
 
-	const lbContainer = document.querySelector("#left");
+	const lbc = document.querySelector("#left");
+	const rbc = document.querySelector("#right");
 
-	// populate left bracket
-	const bracketElements = buildBracketStructure(leftBracketData);
-	lbContainer.appendChild(bracketElements);
+	console.log("Populating left side of the bracket...");
+	lbc.appendChild(buildBracketStructure(leftBracketData));
+
+	console.log("Populating right side of the bracket...");
+	rbc.appendChild(buildBracketStructure(rightBracketData));
 })();

@@ -9,25 +9,41 @@ body {
 
 /* 15 columns, 38 rows */
 #bracket-container {
-
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
 }
 
-#left-bracket {
+#left {
 	display: flex;
 	flex-direction: column;
 }
 
-.group {
+#right {
+	display: flex;
+	flex-direction: column;
+}
+
+#left .group {
 	display: flex;
 	flex-direction: row;
+}
+
+#right .group {
+	display: flex;
+	flex-direction: row-reverse;
 }
 
 .entries > .bracket-item:last-child {
 	margin-bottom: 2rem;
 }
 
-.entries > .bracket-item {
-	border-right: 1px solid #000;
+/* TODO: maybe figure out a way to not hardcode this */
+#round-38 > .entries > .bracket-item:last-of-type,
+#round-76 > .entries > .bracket-item:last-of-type {
+	margin-bottom: 0 !important;
 }
 
 .entries {
@@ -35,12 +51,48 @@ body {
 	flex-direction: column;
 }
 
-.entries > .group:not(:first-child) .winner {
+#left .entries > .bracket-item {
 	border-right: 1px solid #000;
 }
 
-.entries > .group:not(:last-child) .winner-whitespace {
+#left .entries > .group:not(:first-child) .winner {
 	border-right: 1px solid #000;
+}
+
+#left .entries > .group:not(:last-child) .winner-whitespace {
+	border-right: 1px solid #000;
+}
+
+/* HACK: Get rid of extraneous lines. */
+#left .group:first-child > .winner-wrapper > .winner {
+	border-right: none !important;
+}
+
+/* HACK: Get rid of extraneous lines. */
+#left .group:last-child > .winner-wrapper > .winner-whitespace {
+	border-right: none !important;
+}
+
+#right .entries > .bracket-item {
+	border-left: 1px solid #000;
+}
+
+#right .entries > .group:not(:first-child) .winner {
+	border-left: 1px solid #000;
+}
+
+#right .entries > .group:not(:last-child) .winner-whitespace {
+	border-left: 1px solid #000;
+}
+
+/* HACK: Get rid of extraneous lines. */
+#right .group:first-child > .winner-wrapper > .winner {
+	border-left: none !important;
+}
+
+/* HACK: Get rid of extraneous lines. */
+#right .group:last-child > .winner-wrapper > .winner-whitespace {
+	border-left: none !important;
 }
 
 .winner {
