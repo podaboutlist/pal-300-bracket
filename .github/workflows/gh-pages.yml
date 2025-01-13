@@ -47,8 +47,7 @@ jobs:
 
       - name: install dependencies with yarn
         working-directory: web
-        # production=false so we get devDependencies
-        run: yarn install --production=false
+        run: yarn install
 
       - name: 'clean dist/'
         working-directory: web
