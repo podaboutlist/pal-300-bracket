@@ -7,3 +7,4 @@ indent_size = 2
 
 [*.{md,yaml,yml}]
 indent_style = space
+indent_size = 2
