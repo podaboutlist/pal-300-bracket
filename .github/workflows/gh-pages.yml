@@ -59,9 +59,10 @@ jobs:
 
       - name: push changes to gh-pages branch
         working-directory: web/dist
+        # TODO: change user.email to somethin sane?
         run: |
-          git config --global user.name "Audrey (GitHub Actions)"
-          git config --global user.email "6566104+RalphORama@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }} (GitHub Actions)"
+          git config --global user.email "git@podaboutli.st"
           git add .
-          git commit -m "automated build"
+          git commit -m "build for ${{ github.ref_name }}@${GITHUB_SHA::7}"
           git push --set-upstream origin gh-pages
