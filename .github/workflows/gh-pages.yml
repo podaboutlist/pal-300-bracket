@@ -43,6 +43,7 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: yarn
+          cache-dependency-path: 'web/yarn.lock'
 
       - name: install dependencies with yarn
         working-directory: web
