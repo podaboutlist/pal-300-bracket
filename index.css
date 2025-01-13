@@ -1,0 +1,217 @@
+:root {
+	--min-width: 1400px;
+
+	--bracket-columns: 15;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	/* HACK: Gotta find a better way to make this look good on small screens */
+	min-width: var(--min-width);
+	font-size: 12pt;
+}
+
+header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	margin-bottom: 2rem;
+	/* background-color: yellow; */
+}
+
+header h1 {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+
+	max-width: 40%;
+
+	margin: 0;
+	padding: 0;
+	padding-bottom: 1rem;
+
+	border-bottom: 2px solid #000;
+}
+
+header h1 span {
+	display: block;
+	text-align: center;
+}
+
+footer {
+	width: 100%;
+	text-align: center;
+
+	font-size: 10pt;
+}
+
+footer ul {
+	list-style-type: none;
+}
+
+footer ul li {
+	/* display: inline-block; */
+	padding: 0.1rem 2rem;
+}
+
+footer ul li.social {
+	display: inline-block;
+}
+
+footer a,
+footer a:link,
+footer a:visited,
+footer a:hover,
+footer a:focus,
+footer a:active {
+	text-decoration: none;
+}
+
+a, a:link, a:visited, a:hover, a:focus, a:active {
+	color: #0066cc;
+}
+
+/* 15 columns, 38 rows */
+#bracket-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#left {
+	display: flex;
+	flex-direction: column;
+}
+
+#right {
+	display: flex;
+	flex-direction: column;
+}
+
+#left .group {
+	display: flex;
+	flex-direction: row;
+}
+
+#right .group {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.entries > .bracket-item:last-child {
+	margin-bottom: 2rem;
+}
+
+/* TODO: maybe figure out a way to not hardcode this */
+#round-38 > .entries > .bracket-item:last-of-type,
+#round-76 > .entries > .bracket-item:last-of-type {
+	margin-bottom: 0 !important;
+}
+
+.entries {
+	display: flex;
+	flex-direction: column;
+}
+
+#left .entries > .bracket-item {
+	border-right: 1px solid #000;
+}
+
+#left .entries > .group:not(:first-child) .winner {
+	border-right: 1px solid #000;
+}
+
+#left .entries > .group:not(:last-child) .winner-whitespace {
+	border-right: 1px solid #000;
+}
+
+/* HACK: Get rid of extraneous lines. */
+#left .group:first-child > .winner-wrapper > .winner {
+	border-right: none !important;
+}
+
+/* HACK: Get rid of extraneous lines. */
+#left .group:last-child > .winner-wrapper > .winner-whitespace {
+	border-right: none !important;
+}
+
+#right .entries > .bracket-item {
+	border-left: 1px solid #000;
+}
+
+#right .entries > .group:not(:first-child) .winner {
+	border-left: 1px solid #000;
+}
+
+#right .entries > .group:not(:last-child) .winner-whitespace {
+	border-left: 1px solid #000;
+}
+
+/* HACK: Get rid of extraneous lines. */
+#right .group:first-child > .winner-wrapper > .winner {
+	border-left: none !important;
+}
+
+/* HACK: Get rid of extraneous lines. */
+#right .group:last-child > .winner-wrapper > .winner-whitespace {
+	border-left: none !important;
+}
+
+.winner {
+  align-content: end;
+}
+
+.winner, .winner-whitespace {
+	min-height: 50%;
+	height: 50%;
+	max-height: 50%;
+}
+
+.bracket-item {
+	width: calc(max(100vw, var(--min-width)) / var(--bracket-columns));
+
+	padding: 2pt;
+
+	border-bottom: 2px solid #000;
+
+	overflow-wrap: break-word;
+	hyphens: auto;
+}
+
+.entries > .bracket-item:first-child {
+	border-top: 2px solid #000;
+}
+
+/* Rainbow spiral, bouncing in and out like the Minecraft splash text, whatever */
+/* TODO: This shit does not align properly at 1400px or smaller */
+#overall-winner-container {
+	align-self: center;
+	position: absolute;
+	/* top: 50%; */
+	left: calc(max(100vw, var(--min-width)) / 2);
+
+	text-align: center;
+}
+
+#overall-winner {
+	position: relative;
+	/* top: 200%; */
+	left: -50%;
+	margin-top: 26rem;
+	padding: 1rem 2rem;
+	background-color: #eee;
+}
