@@ -5,5 +5,5 @@ insert_final_newline = true
 indent_style = tab
 indent_size = 2
 
-[*.md]
+[*.{md,yaml,yml}]
 indent_style = space
