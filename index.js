@@ -109,7 +109,7 @@ let g_bracketStructure;
 		mode: 'no-cors',
 	}
 
-	const bracketStructure = await (await window.fetch("data/structure.json", fetchOpts)).json();
+	const bracketStructure = await (await window.fetch("data/structure.min.json", fetchOpts)).json();
 
 	// for testing
 	const episodeData = await (await window.fetch("data/episodes.min.json", fetchOpts)).json();
