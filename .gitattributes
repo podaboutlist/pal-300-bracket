@@ -1,1 +1,2 @@
 img/pal_300_bracket_full.png filter=lfs diff=lfs merge=lfs -text
+img/non-web/pal_300_bracket_full.png filter=lfs diff=lfs merge=lfs -text
