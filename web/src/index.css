@@ -1,6 +1,9 @@
 :root {
 	--min-width: 1400px;
 
+	/* TODO: Figure out why these lines don't line up. what the heck!!! */
+	--bracket-border: 2px solid #000;
+
 	--bracket-columns: 15;
 }
 
@@ -42,7 +45,7 @@ header h1 {
 	padding: 0;
 	padding-bottom: 1rem;
 
-	border-bottom: 2px solid #000;
+	border-bottom: var(--bracket-border);
 }
 
 header h1 span {
@@ -128,15 +131,15 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 }
 
 #left .entries > .bracket-item {
-	border-right: 1px solid #000;
+	border-right: var(--bracket-border);
 }
 
 #left .entries > .group:not(:first-child) .winner {
-	border-right: 1px solid #000;
+	border-right: var(--bracket-border);
 }
 
 #left .entries > .group:not(:last-child) .winner-whitespace {
-	border-right: 1px solid #000;
+	border-right: var(--bracket-border);
 }
 
 /* HACK: Get rid of extraneous lines. */
@@ -150,15 +153,15 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 }
 
 #right .entries > .bracket-item {
-	border-left: 1px solid #000;
+	border-left: var(--bracket-border);
 }
 
 #right .entries > .group:not(:first-child) .winner {
-	border-left: 1px solid #000;
+	border-left: var(--bracket-border);
 }
 
 #right .entries > .group:not(:last-child) .winner-whitespace {
-	border-left: 1px solid #000;
+	border-left: var(--bracket-border);
 }
 
 /* HACK: Get rid of extraneous lines. */
@@ -186,14 +189,14 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 
 	padding: 2pt;
 
-	border-bottom: 2px solid #000;
+	border-bottom: var(--bracket-border);
 
 	overflow-wrap: break-word;
 	hyphens: auto;
 }
 
 .entries > .bracket-item:first-child {
-	border-top: 2px solid #000;
+	border-top: var(--bracket-border);
 }
 
 /* Rainbow spiral, bouncing in and out like the Minecraft splash text, whatever */
