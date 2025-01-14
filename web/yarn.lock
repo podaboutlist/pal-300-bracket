@@ -3728,7 +3728,6 @@ __metadata:
     gulp-uglify: "npm:^3.0.2"
     lightningcss: "npm:^1.29.1"
     rimraf: "npm:^6.0.1"
-    uglify-js: "npm:^3.19.3"
   languageName: unknown
   linkType: soft
 
@@ -4724,7 +4723,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:^3.0.5, uglify-js@npm:^3.19.3":
+"uglify-js@npm:^3.0.5":
   version: 3.19.3
   resolution: "uglify-js@npm:3.19.3"
   bin:
