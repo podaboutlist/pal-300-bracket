@@ -81,11 +81,18 @@ function minifyHTML() {
 		.pipe(dest('dist'));
 }
 
-function copyFiles() {
+function copyImages() {
 	return src(['src/favicon.ico', 'src/img/**'], {
 		base: 'src',
 		// stop gulp messing up our images
 		encoding: false,
+	})
+		.pipe(dest('dist'));
+}
+
+function copyParentFiles() {
+	return src(['../CNAME', '../LICENSE.txt', '../.gitignore'], {
+		// base: 'dist',
 	})
 		.pipe(dest('dist'));
 }
@@ -119,7 +126,8 @@ const build = parallel(
 	buildJS,
 	minifyCSS,
 	minifyHTML,
-	copyFiles
+	copyImages,
+	copyParentFiles
 );
 
 exports.clean = clean;
