@@ -59,7 +59,8 @@ jobs:
         # TODO: change user.email to somethin sane?
         run: |
           test `git branch --show-current` = 'gh-pages'
-          git remote update; [[ "`git status -uno`" == *"up to date with"* ]] && exit 0
+          git remote update
+          [[ "`git status -uno`" == *"up to date with"* ]] && echo "No changes to gh-pages, not pushing." && exit 0
           git config --global user.name "${{ github.actor }} (GitHub Actions)"
           git config --global user.email "git@podaboutli.st"
           git add .
