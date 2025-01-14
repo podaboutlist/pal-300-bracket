@@ -19,7 +19,7 @@
     "directory": "web"
   },
   "scripts": {
-    "minify-json": "jq --version && cat src/data/episodes.json | jq -crM > dist/data/episodes.min.json && cat src/data/structure.json | jq -crM > dist/data/structure.min.json",
+    "minify-json": "jq --version && cat ../data/episodes.json | jq -crM > dist/data/episodes.min.json && cat ../data/structure.json | jq -crM > dist/data/structure.min.json",
     "minify-js": "uglifyjs --version && uglifyjs -c -m --warn src/index.js -o dist/index.min.js",
     "minify-html": "html-minifier --version && html-minifier --input-dir src --output-dir dist --file-ext html --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --remove-empty-attributes --sort-attributes --sort-class-name",
     "minify-css": "lightningcss --version && lightningcss --minify --sourcemap --targets \">= 0.25%\" -o dist/index.min.css src/index.css && sed -i 's/sourceMappingURL=dist\\/index.min.css.map/sourceMappingURL=index.min.css.map/' dist/index.min.css",
