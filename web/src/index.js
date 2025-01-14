@@ -1,9 +1,6 @@
-"use strict";
-
-let g_episodeData;
-let g_bracketStructure;
-
 (async () => {
+	console.info('start it!');
+
 	// Get episode title, number, YouTube URL from seed
 	function getEpisodeDataFromSeed(seedID) {
 		return episodeData[seedID];
@@ -132,7 +129,7 @@ let g_bracketStructure;
 	rbc.appendChild(buildBracketStructure(rightBracketData, "140"));
 
 	// HACK: This shouldn't be hardcoded lol
-	const overallWinnerSID = bracketStructure["141"]["winner"]
+	const overallWinnerSID = bracketStructure["141"]["winner"];
 	if (overallWinnerSID > 0) {
 		populateOverallWinner(overallWinnerSID);
 	}
@@ -145,4 +142,6 @@ let g_bracketStructure;
 			alert("hey what's up :D\n\nthis site kinda looks like butt on moble/small screens right now. sorry about that.\n\nanyway go ahead and hit \"OK\" just know you're gonna have to scroll around a bunch.\n\n\t—audrey");
 		}
 	}, 100);
+
+	console.info('finished doing literally everything :steamhappy: ');
 })();
