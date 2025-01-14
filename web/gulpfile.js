@@ -70,6 +70,7 @@ function minifyHTML() {
 	return src('src/index.html')
 		.pipe(htmlmin({
 			collapseWhitespace: true,
+			collapseBooleanAttributes: true,
 			removeComments: true,
 			minifyURLs: true,
 			removeComments: true,
