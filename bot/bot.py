@@ -3,6 +3,7 @@
 import discord
 import json
 import os
+import sys
 from discord import app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -12,7 +13,8 @@ load_dotenv()
 
 for env_var in ['DISCORD_TOKEN', 'GUILD_ID', 'BOT_OWNERS']:
 	if not os.getenv(env_var):
-		raise RuntimeError(f"No value found in ${env_var}! Did you edit .env/compose.yaml?")
+		print(f'ERROR: No value found in ${env_var}! Did you edit .env or compose.yaml?')
+		sys.exit(1)
 
 
 class BracketBot(commands.Bot):
