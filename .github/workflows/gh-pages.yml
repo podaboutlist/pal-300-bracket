@@ -2,7 +2,11 @@ name: deploy bracket to github pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
+    paths:
+      - '.github/**'
+      - 'data/**'
+      - 'web/**'
 
   # Allow manual running from the Actions tab
   workflow_dispatch:
