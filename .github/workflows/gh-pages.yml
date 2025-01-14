@@ -30,9 +30,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: install jq cli
-        run: sudo apt-get install -y jq
-
       - uses: actions/checkout@v4
 
       - name: Check out Pages branch
@@ -53,18 +50,15 @@ jobs:
         working-directory: web
         run: yarn install
 
-      - name: 'clean dist/'
-        working-directory: web
-        run: yarn run clean
-
       - name: build site
         working-directory: web
-        run: yarn run build
+        run: yarn run ci
 
       - name: push changes to gh-pages branch
         working-directory: web/dist
         # TODO: change user.email to somethin sane?
         run: |
+          test `git branch --show-current` = 'gh-pages'
           git config --global user.name "${{ github.actor }} (GitHub Actions)"
           git config --global user.email "git@podaboutli.st"
           git add .
