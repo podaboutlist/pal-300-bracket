@@ -23,9 +23,10 @@ const htmlmin = require('gulp-html-minifier-terser');
 
 const jsonmin = require('gulp-json-minify');
 
-const PACKAGE = JSON.parse(fs.readFileSync('./package.json'));
 
+const PACKAGE = JSON.parse(fs.readFileSync('./package.json'));
 console.info('[browserslist]', 'targeting', `"${PACKAGE.browserslist}"`);
+
 
 function clean() {
 	// keep dist/.git for GH Actions / Pages deployment
