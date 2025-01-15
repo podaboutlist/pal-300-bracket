@@ -1,3 +1,7 @@
+<p align="center" width="100%">
+ <img alt="pal 300 bracket banner" src="web/src/img/branding/card.jpg?raw=true">
+</p>
+
 # best of podcast about list (so far): a 300 episode bracket
 
 this project is a monorepo for the [web-based bracket][1] and the discord bot
