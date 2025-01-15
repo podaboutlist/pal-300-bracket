@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import asyncio
 import discord
 import json
 import os
@@ -8,6 +9,8 @@ from discord import app_commands
 from discord.ext import commands
 from dotenv import load_dotenv
 from typing import Optional
+
+from cogs.ping import Ping
 
 
 load_dotenv()
@@ -64,20 +67,6 @@ def get_owner_ids() -> list[int]:
 	return list(map(int, os.getenv('BOT_OWNERS').split(',')))
 
 
-# discord.ext.commands.is_owner() already exists but doesn't seem to work for
-# app commands. shrug
-def is_owner():
-	async def predicate(interaction: discord.Interaction) -> bool:
-		"""Check if a user owns the bot. Used as a permission gate for some commands."""
-		if await interaction.client.is_owner(interaction.user):
-			print(f'[is_owner] allowing {interaction.user.name} to run /{interaction.command.name}')
-			return True
-		else:
-			print(f'[is_owner] {interaction.user.name} denied access to /{interaction.command.name}')
-			return False
-	return app_commands.check(predicate)
-
-
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -87,24 +76,6 @@ bot = BracketBot(command_prefix='b.', intents=intents, owner_ids=get_owner_ids()
 @bot.event
 async def on_ready():
 	print(f'> logged in as {bot.user} ({bot.user.id})')
-
-
-@bot.command(name='ping')
-async def txt_ping(ctx: commands.Context):
-	await ctx.reply('pong!')
-
-
-@bot.tree.command(name='ping', description='Test if the bot is working!')
-@is_owner()
-@app_commands.allowed_contexts(app_commands.AppCommandContext(private_channel=False))
-async def cmd_ping(interaction: discord.Interaction):
-		await interaction.response.send_message('pong!')
-
-
-@cmd_ping.error
-async def cmd_ping_handler(interaction: discord.Interaction, error: app_commands.AppCommandError):
-	if isinstance(error, app_commands.errors.CheckFailure):
-		await interaction.response.send_message(":no_entry: You don't have permission to do that!", ephemeral=True)
 
 
 @bot.tree.command(name='round', description='Display info about a round in the bracket')
@@ -136,5 +107,11 @@ async def cmd_round_info(
 		await interaction.response.send_message(msg, suppress_embeds=True)
 
 
+async def main():
+	async with bot:
+		await bot.add_cog(Ping(bot))
+		await bot.start(os.getenv('DISCORD_TOKEN'))
+
+
 if __name__ == '__main__':
-	bot.run(os.getenv('DISCORD_TOKEN'))
+	asyncio.run(main())
