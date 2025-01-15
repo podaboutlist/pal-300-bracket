@@ -62,6 +62,5 @@ jobs:
           git config --global user.name "${{ github.actor }} (GitHub Actions)"
           git config --global user.email "git@podaboutli.st"
           git add .
-          [[ "`git status -uno`" == *"up to date with"* ]] && echo "No changes to gh-pages, not pushing." && exit 0
-          git commit -m "build for ${{ github.ref_name }}@${GITHUB_SHA::7}"
+          git commit -m "build for ${{ github.ref_name }}@${GITHUB_SHA::7}" || echo "No changes to gh-pages, not pushing."
           git push --set-upstream origin gh-pages
