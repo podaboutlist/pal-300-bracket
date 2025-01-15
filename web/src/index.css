@@ -172,6 +172,11 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 	border-left: none !important;
 }
 
+/* fix that annoying offset for border lines */
+.winner-wrapper {
+	width: calc(max(100vw,var(--min-width))/var(--bracket-columns));
+}
+
 .winner {
   align-content: end;
 }
