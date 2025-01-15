@@ -1,0 +1,41 @@
+name: send discord message for bracket updates
+
+on:
+  push:
+    branches: ['main']
+    paths:
+      - 'data/**'
+
+jobs:
+  broadcast:
+    runs-on: ubuntu-latest
+
+    env:
+      DEBIAN_FRONTEND: noninteractive
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # https://stackoverflow.com/a/59819441
+      - name: output variables
+        id: vars
+        run: |
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "embed_timestamp=$(date +'%Y-%m-%dT%H:%M:%S%z')" >> $GITHUB_OUTPUT
+
+      - name: send webhook payload
+        uses: tsickert/discord-webhook@v6.0.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          wait: true
+          username: bracketbot
+          avatar-url: 'https://files.catbox.moe/k5pkkf.png'
+          embed-title: 'The bracket was updated!'
+          embed-color: 14234527
+          embed-description: |
+            ${{ github.actor }} pushed ${{ steps.vars.outputs.sha_short }} to ${{ github.ref_name }}:
+
+            > ${{ github.event.head_commit.message }}
+
+            [*click here to visit the bracket online!*](https://bracket.podaboutli.st)'
+          embed-timestamp: ${{ steps.vars.outputs.embed_timestamp }}
