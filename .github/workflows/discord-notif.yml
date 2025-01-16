@@ -1,10 +1,11 @@
 name: send discord message for bracket updates
 
 on:
-  workflow_run:
-    workflows: ['pages-build-deployment']
-    types:
-      - completed
+  push:
+    branches: ['gh-pages']
+    # Might need to add more paths later but we really only want updates when data is updated
+    paths:
+      - 'data/*.json'
 
 jobs:
   broadcast:
