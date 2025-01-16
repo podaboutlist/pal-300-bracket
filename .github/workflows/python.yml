@@ -3,9 +3,11 @@ name: lint python
 on:
   push:
     paths:
+      - '.github/python.yml'
       - 'bot/**'
   pull_request:
     paths:
+      - '.github/python.yml'
       - 'bot/**'
 
 jobs:
