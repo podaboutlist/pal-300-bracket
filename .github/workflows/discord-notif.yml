@@ -5,6 +5,7 @@ on:
     branches: ['gh-pages']
     # Might need to add more paths later but we really only want updates when data is updated
     paths:
+      - '.github/workflows/discord-notif.yml'
       - 'data/*.json'
   # Allow manual running from the Actions tab
   workflow_dispatch:

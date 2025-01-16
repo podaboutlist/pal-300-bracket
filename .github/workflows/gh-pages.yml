@@ -4,7 +4,7 @@ on:
   push:
     branches: ['main']
     paths:
-      - '.github/gh-pages.yml'
+      - '.github/workflows/gh-pages.yml'
       - 'data/**'
       - 'web/**'
   # Allow manual running from the Actions tab
