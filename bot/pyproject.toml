@@ -20,7 +20,7 @@ indent-width = 2
 indent-style = "tab"
 
 [tool.ruff.lint]
-# TODO: add
+# laughing all the way to the bank. holy cow just switch em all on and let 'er rip bud
 select = [
 	"E", "F", "W", "I", "N", "UP", "YTT", "ANN", "ASYNC", "S", "BLE", "FBT", "B", "A", "COM",
 	"C4", "EM", "EXE", "ISC", "ICN", "LOG", "G", "INP", "PIE", "T20", "Q", "RSE", "RET", "SLF",
