@@ -1,14 +1,17 @@
 import logging
-from typing import Optional
+import os
 
 import discord
 from discord import app_commands
 from discord.ext import commands
 
+from bracketbot.bracketbot import BracketBot
+
 logger = logging.getLogger(__name__)
+logger.setLevel(os.getenv("LOG_LEVEL", "INFO"))
 
 
-# TODO: Might wanna move all the logic for traversing my insane weird data
+# TODO (audrey): Might wanna move all the logic for traversing my insane weird data
 # structure to its own class/file
 # https://stackoverflow.com/a/65418112
 def find_key_nonrecursive(the_dict: dict, key: any) -> any:
@@ -32,40 +35,43 @@ def find_key_nonrecursive(the_dict: dict, key: any) -> any:
 
 
 class RoundInfo(commands.Cog):
-	def __init__(self, bot):
+	def __init__(self, bot: BracketBot) -> None:
 		self.bot = bot
 
-		if type(self.bot._tourney_data) is not dict:
-			logger.warning(f"self.bot._tourney_data is {type(self.bot._tourney_data)}!")
-
-		if type(self.bot._episode_data) is not dict:
-			logger.warning(f"self.bot._tourney_data is {type(self.bot._episode_data)}!")
+		logger.debug("cog initialized")
 
 	@app_commands.command(
-		name="round_info", description="Display info about a round in the bracket",
+		name="round_info",
+		description="Display info about a round in the bracket",
 	)
 	@app_commands.rename(round_id="round_number")
 	@app_commands.describe(round_id="A specific round to inspect")
 	async def cmd_round_info(
 		self,
 		interaction: discord.Interaction,
-		round_id: Optional[app_commands.Range[int, 1, 141]] = None,
-	):
+		round_id: app_commands.Range[int, 1, 141] | None = None,
+	) -> None:
 		if not round_id:
+			logger.debug("Looking up information for the current round...")
 			await interaction.response.send_message("not implemented yet", ephemeral=True)
 			return
 
-		round_info = find_key_nonrecursive(self.bot._tourney_data, str(round_id))
+		round_key = str(round_id)
+
+		logger.debug("Looking up info for round %s", round_key)
+
+		round_info = find_key_nonrecursive(self.bot.tourney_data, round_key)
 		winner_id = round_info["winner"]
 
 		if winner_id == -1:
-			await interaction.response.send_message(f"Round {round_id} doesn't have a winner yet!")
+			await interaction.response.send_message(f"Round {round_key} doesn't have a winner yet!")
 		else:
-			winner = self.bot._episode_data[str(winner_id)]
+			winner = self.bot.episode_data[str(winner_id)]
 
-			# TODO: turn this into a cool embed or whatever
+			# TODO (audrey): send a cool embed instead of whatever this is
+
 			msg = (
-				f"### __Info for Round {round_id}__\n"
+				f"### __Info for Round {round_key}__\n"
 				f"Winner: Episode {winner['episode']} - [{winner['title']}]({winner['link']})\n"
 				f"-# [_Click here to see the bracket online!_](https://bracket.podaboutli.st/#round-{round_id})"
 			)

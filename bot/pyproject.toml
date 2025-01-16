@@ -20,15 +20,18 @@ indent-width = 2
 indent-style = "tab"
 
 [tool.ruff.lint]
-# laughing all the way to the bank. holy cow just switch em all on and let 'er rip bud
+# laughing all the way to the bank.
+# holy cow just switch em all on and let 'er rip bud
 select = [
-	"E", "F", "W", "I", "N", "UP", "YTT", "ANN", "ASYNC", "S", "BLE", "FBT", "B", "A", "COM",
-	"C4", "EM", "EXE", "ISC", "ICN", "LOG", "G", "INP", "PIE", "T20", "Q", "RSE", "RET", "SLF",
-	"SIM", "TID", "ARG", "TD", "ERA", "PL", "TRY", "PERF", "FURB", "RUF"
+	"E", "F", "W", "I", "N", "UP", "YTT", "ANN", "ASYNC", "S", "BLE", "FBT", "B",
+	"A", "COM", "C4", "EM", "EXE", "ISC", "ICN", "LOG", "G", "INP", "PIE", "T20",
+	"Q", "RSE", "RET", "SLF", "SIM", "TID", "ARG", "TD", "PL", "TRY", "PERF",
+	"FURB", "RUF"
 ]
 ignore = [
-	"W191",
-	"TD003"
+	"W191",   # you know a spacelet hates to see a tabchad like me coming
+	"TD003",  # don't require issue links for TODO messages
+	"COM812", # conflicts with `ruff format`
 ]
 
 [dependency-groups]
