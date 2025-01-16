@@ -9,6 +9,8 @@ on:
     paths:
       - '.github/python.yml'
       - 'bot/**'
+  # Allow manual running from the Actions tab
+  workflow_dispatch:
 
 jobs:
   lint:

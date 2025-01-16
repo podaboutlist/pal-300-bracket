@@ -7,7 +7,6 @@ on:
       - '.github/gh-pages.yml'
       - 'data/**'
       - 'web/**'
-
   # Allow manual running from the Actions tab
   workflow_dispatch:
 
