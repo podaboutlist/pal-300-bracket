@@ -1,0 +1,28 @@
+name: lint python
+
+on:
+  push:
+    paths:
+      - 'bot/**'
+  pull_request:
+    paths:
+      - 'bot/**'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          pyproject-file: './bot/pyproject.toml'
+          enable-cache: true
+          cache-dependency-glob: |
+            ./bot/**/requirements*.txt
+            ./bot/**/uv.lock
+
+      - name: ruff check
+        working-directory: './bot'
+        run: uv run --frozen ruff check
