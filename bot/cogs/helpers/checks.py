@@ -1,7 +1,7 @@
-import discord
 import logging
-from discord import app_commands
 
+import discord
+from discord import app_commands
 
 logger = logging.getLogger(__name__)
 
@@ -12,9 +12,14 @@ def is_owner():
 	async def predicate(interaction: discord.Interaction) -> bool:
 		"""Check if a user owns the bot. Used as a permission gate for some commands."""
 		if await interaction.client.is_owner(interaction.user):
-			logger.info(f'is_owner(): allowing {interaction.user.name} to run /{interaction.command.name}')
+			logger.info(
+				f"is_owner(): allowing {interaction.user.name} to run /{interaction.command.name}",
+			)
 			return True
 		else:
-			logger.warning(f'is_owner(): {interaction.user.name}  access to /{interaction.command.name}')
+			logger.warning(
+				f"is_owner(): {interaction.user.name}  access to /{interaction.command.name}",
+			)
 			return False
+
 	return app_commands.check(predicate)

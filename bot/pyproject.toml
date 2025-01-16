@@ -1,0 +1,37 @@
+[project]
+name = "pal-300-bracket-discord-bot"
+version = "0.1.0"
+description = "Discord bot for the Podcast About List 300 episode tournament"
+readme = "../README.md"
+requires-python = ">=3.13"
+dependencies = [
+	"audioop-lts>=0.2.1",
+	"discord-py>=2.4.0",
+	"python-dotenv>=1.0.1",
+]
+
+[tool.ruff]
+# Give us a lil bit more line length
+line-length = 96
+indent-width = 2
+
+[tool.ruff.format]
+# yum yum yum i love using tabs
+indent-style = "tab"
+
+[tool.ruff.lint]
+# TODO: add
+select = [
+	"E", "F", "W", "I", "N", "UP", "YTT", "ANN", "ASYNC", "S", "BLE", "FBT", "B", "A", "COM",
+	"C4", "EM", "EXE", "ISC", "ICN", "LOG", "G", "INP", "PIE", "T20", "Q", "RSE", "RET", "SLF",
+	"SIM", "TID", "ARG", "TD", "ERA", "PL", "TRY", "PERF", "FURB", "RUF"
+]
+ignore = [
+	"W191",
+	"TD003"
+]
+
+[dependency-groups]
+dev = [
+	"ruff>=0.9.1",
+]
