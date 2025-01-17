@@ -10,6 +10,9 @@ dependencies = [
 	"python-dotenv>=1.0.1",
 ]
 
+[tool.uv]
+required-version = ">=0.5.20"
+
 [tool.ruff]
 # Give us a lil bit more line length
 line-length = 96
