@@ -8,7 +8,7 @@ import git
 from discord import app_commands
 from discord.ext import commands
 
-from bracketbot.bracketbot import BracketBot
+from bracketbot import BracketBot
 from bracketbot.helpers import find_key_nonrecursive
 
 from .checks.owner_only import owner_only

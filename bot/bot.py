@@ -16,7 +16,7 @@ import sys
 import discord
 
 # TODO (audrey): fix __init__.py lol
-from bracketbot.bracketbot import BracketBot
+from bracketbot import BracketBot
 from bracketbot.cogs.ping import Ping
 from bracketbot.cogs.round_info import RoundInfo
 from bracketbot.cogs.tourney_management import TourneyManager
