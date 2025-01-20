@@ -5,7 +5,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from .checks.is_owner import is_owner
+from .checks.owner_only import owner_only
 
 logger = logging.getLogger(__name__)
 logger.setLevel(os.getenv("LOG_LEVEL", "INFO"))
@@ -23,7 +23,7 @@ class Ping(commands.Cog):
 		await ctx.reply("pong!")
 
 	@app_commands.command(name="ping", description="Test if the bot is working!")
-	@is_owner()
+	@owner_only()
 	async def cmd_ping(self, interaction: discord.Interaction) -> None:
 		await interaction.response.send_message("pong!")
 

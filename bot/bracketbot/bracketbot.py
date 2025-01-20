@@ -42,16 +42,24 @@ class BracketBot(commands.Bot):
 	def get_owner_ids(self) -> list[int]:
 		return list(map(int, os.getenv("BOT_OWNERS").split(",")))
 
-	def read_tourney_data_file(self) -> None:
+	def read_tourney_data_file(self, *, data_file: str | None = None) -> None:
 		structure_file = os.path.join(self._data_file_folder, "structure.json")
+
+		if data_file:
+			structure_file = data_file
+
 		logger.debug("Loading tournament data from %s ...", structure_file)
 
 		with open(structure_file, encoding="utf8") as sj:
 			self._tourney_data = json.load(sj)
 			logger.debug("Tournament data loaded.")
 
-	def read_episode_data_file(self) -> None:
+	def read_episode_data_file(self, *, data_file: str | None = None) -> None:
 		episodes_file = os.path.join(self._data_file_folder, "episodes.json")
+
+		if data_file:
+			episodes_file = data_file
+
 		logger.debug("Loading episode data from %s ...", episodes_file)
 
 		with open(episodes_file, encoding="utf8") as ej:

@@ -19,6 +19,7 @@ import discord
 from bracketbot.bracketbot import BracketBot
 from bracketbot.cogs.ping import Ping
 from bracketbot.cogs.round_info import RoundInfo
+from bracketbot.cogs.tourney_management import TourneyManager
 
 discord.utils.setup_logging()
 logger = logging.getLogger(__name__)
@@ -51,6 +52,7 @@ async def main() -> None:
 	async with bot:
 		await bot.add_cog(Ping(bot))
 		await bot.add_cog(RoundInfo(bot))
+		await bot.add_cog(TourneyManager(bot))
 		await bot.start(os.getenv("DISCORD_TOKEN"))
 
 

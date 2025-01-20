@@ -6,32 +6,10 @@ from discord import app_commands
 from discord.ext import commands
 
 from bracketbot.bracketbot import BracketBot
+from bracketbot.helpers import find_key_nonrecursive
 
 logger = logging.getLogger(__name__)
 logger.setLevel(os.getenv("LOG_LEVEL", "INFO"))
-
-
-# TODO (audrey): Might wanna move all the logic for traversing my insane weird data
-# structure to its own class/file
-# https://stackoverflow.com/a/65418112
-def find_key_nonrecursive(the_dict: dict, key: any) -> any:
-	stack = [the_dict]
-	while stack:
-		d = stack.pop()
-
-		# python gets angry when we try to iterate over these
-		if type(d) is list or type(d) is int:
-			continue
-
-		if key in d:
-			return d[key]
-		for v in d.values():
-			if isinstance(v, dict):
-				stack.append(v)
-			if isinstance(v, list):
-				stack += v
-
-	return None
 
 
 class RoundInfo(commands.Cog):
@@ -60,7 +38,7 @@ class RoundInfo(commands.Cog):
 
 		logger.debug("Looking up info for round %s", round_key)
 
-		round_info = find_key_nonrecursive(self.bot.tourney_data, round_key)
+		round_info = find_key_nonrecursive(round_key, self.bot.tourney_data)
 		winner_id = round_info["winner"]
 
 		if winner_id == -1:

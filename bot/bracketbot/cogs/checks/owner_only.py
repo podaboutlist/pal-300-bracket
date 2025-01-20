@@ -9,7 +9,7 @@ logger.setLevel(os.getenv("LOG_LEVEL", "INFO"))
 
 
 # TODO (audrey): figure out what this returns instead of 'any'
-def is_owner() -> any:
+def owner_only() -> any:
 	async def predicate(interaction: discord.Interaction) -> bool:
 		"""Check if a user owns the bot. Used as a permission gate for some commands."""
 		if await interaction.client.is_owner(interaction.user):

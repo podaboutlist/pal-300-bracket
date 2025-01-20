@@ -1,6 +1,7 @@
 .env
 compose.yaml
 .ruff_cache
+bracket_repo
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
