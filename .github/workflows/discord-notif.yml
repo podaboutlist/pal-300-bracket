@@ -1,13 +1,12 @@
 name: send discord message for bracket updates
 
 on:
-  push:
-    branches:
-      - gh-pages
-    # Might need to add more paths later but we really only want updates when data is updated
-    paths:
-      - '.github/workflows/**'
-      - 'data/**'
+  workflow_run:
+    workflows: ['deploy bracket to github pages']
+    types:
+      - completed
+    branches: ['main']
+
   # Allow manual running from the Actions tab
   workflow_dispatch:
 
@@ -15,11 +14,16 @@ jobs:
   broadcast:
     runs-on: ubuntu-latest
 
-    env:
-      DEBIAN_FRONTEND: noninteractive
-
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - id: changed-data-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            data/**.json
 
       # https://stackoverflow.com/a/59819441
       - name: output variables
@@ -30,9 +34,9 @@ jobs:
           echo "refresh_timestamp=$(date +'%s')" >> $GITHUB_OUTPUT
 
       # TODO:
-      #   - Get info from main branch to make this thing look better
       #   - Use raw JSON file so we can add a CTA button for visiting the site
       - name: send webhook payload
+        if: steps.changed-data-files.outputs.any_changed == 'true'
         uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}

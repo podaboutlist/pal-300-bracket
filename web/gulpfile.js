@@ -95,11 +95,6 @@ function copyParentFiles() {
 		.pipe(dest('dist'));
 }
 
-function copyGHActions() {
-	return src(['../.github/workflows/discord-notif.yml'])
-		.pipe(dest('dist/.github/workflows'))
-}
-
 function watchFiles() {
 	watch('src/*.js', buildJS);
 	watch('src/*.css', minifyCSS);
@@ -126,8 +121,7 @@ function serve() {
 
 const copyFiles = parallel(
 	copyImages,
-	copyParentFiles,
-	copyGHActions
+	copyParentFiles
 )
 
 const build = parallel(

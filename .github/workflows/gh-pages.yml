@@ -7,15 +7,17 @@ on:
       - '.github/workflows/**'
       - 'data/**'
       - 'web/**'
+
   # Allow manual running from the Actions tab
   workflow_dispatch:
 
 permissions:
-  contents: write
-  id-token: write
+  contents: read
   pages: write
+  id-token: write
 
-# Allow only one concurrent deployment, skips to latest requested run once current finishes
+# Allow only one concurrent deployment, skips to latest requested run once the
+# current finishes
 # doesn't cancel in-progress runs
 concurrency:
   group: "pages"
@@ -23,19 +25,16 @@ concurrency:
 
 jobs:
   deploy:
-    env:
-      DEBIAN_FRONTEND: noninteractive
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check out Pages branch
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: 'web/dist'
+      - uses: actions/configure-pages@v5
 
       - run: corepack enable
 
@@ -53,12 +52,12 @@ jobs:
         working-directory: web
         run: yarn run ci
 
-      - name: push changes to gh-pages branch
-        working-directory: web/dist
-        run: |
-          test `git branch --show-current` = 'gh-pages'
-          git config --global user.name "belac sttip"
-          git config --global user.email "gitbot@podaboutli.st"
-          git add .
-          git commit -m "build for ${{ github.ref_name }}@${GITHUB_SHA::7}" || echo "No changes to gh-pages, not pushing."
-          git push --set-upstream origin gh-pages
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload build directory
+          path: 'web/dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
