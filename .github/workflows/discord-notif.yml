@@ -6,7 +6,7 @@ on:
     # Might need to add more paths later but we really only want updates when data is updated
     paths:
       - '.github/workflows/discord-notif.yml'
-      - 'data/*.json'
+      - 'data/**'
   # Allow manual running from the Actions tab
   workflow_dispatch:
 
@@ -37,10 +37,10 @@ jobs:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           wait: true
           username: bracketbot
-          avatar-url: 'https://files.catbox.moe/k5pkkf.png'
+          avatar-url: 'https://files.catbox.moe/1dcdqz.jpg'
           embed-author-name: 'the bracket was updated!'
           embed-title: 'click here to visit the bracket online!'
-          embed-url: 'https://bracket.podaboutli.st'
+          embed-url: 'https://bracket.podaboutli.st?refresh=${{ steps.vars.outputs.refresh_timestamp }}'
           embed-color: 14234527
           embed-image-url: 'https://bracket.podaboutli.st/img/branding/card.jpg?refresh=${{ steps.vars.outputs.refresh_timestamp }}'
           embed-timestamp: ${{ steps.vars.outputs.embed_timestamp }}

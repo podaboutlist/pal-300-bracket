@@ -91,10 +91,13 @@ function copyImages() {
 }
 
 function copyParentFiles() {
-	return src(['../CNAME', '../LICENSE.txt', '../.gitignore'], {
-		// base: 'dist',
-	})
+	return src(['../CNAME', '../LICENSE.txt', '../.gitignore'])
 		.pipe(dest('dist'));
+}
+
+function copyGHActions() {
+	return src(['../.github/workflows/discord-notif.yml'])
+		.pipe(dest('dist/.github/workflows'))
 }
 
 function watchFiles() {
@@ -121,13 +124,18 @@ function serve() {
 	watch('dist').on('change', reload);
 }
 
+const copyFiles = parallel(
+	copyImages,
+	copyParentFiles,
+	copyGHActions
+)
+
 const build = parallel(
 	minifyJSON,
 	buildJS,
 	minifyCSS,
 	minifyHTML,
-	copyImages,
-	copyParentFiles
+	copyFiles
 );
 
 exports.clean = clean;
