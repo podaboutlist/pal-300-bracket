@@ -2,10 +2,11 @@ name: send discord message for bracket updates
 
 on:
   push:
-    branches: ['gh-pages']
+    branches:
+      - gh-pages
     # Might need to add more paths later but we really only want updates when data is updated
     paths:
-      - '.github/workflows/discord-notif.yml'
+      - '.github/workflows/**'
       - 'data/**'
   # Allow manual running from the Actions tab
   workflow_dispatch:
