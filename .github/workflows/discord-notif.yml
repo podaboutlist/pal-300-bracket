@@ -19,11 +19,14 @@ jobs:
         with:
           fetch-depth: 2
 
-      - id: changed-data-files
+      - id: changed-files
         uses: tj-actions/changed-files@v45
         with:
           files: |
             data/**.json
+            .github/workflows/**.yml
+          files_ignore: |
+            .github/workflows/python.yml
 
       # https://stackoverflow.com/a/59819441
       - name: output variables
@@ -36,7 +39,7 @@ jobs:
       # TODO:
       #   - Use raw JSON file so we can add a CTA button for visiting the site
       - name: send webhook payload
-        if: steps.changed-data-files.outputs.any_changed == 'true'
+        if: steps.changed-files.outputs.any_changed == 'true'
         uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
