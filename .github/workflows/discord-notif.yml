@@ -1,0 +1,46 @@
+name: send discord message for bracket updates
+
+on:
+  push:
+    branches: ['gh-pages']
+    # Might need to add more paths later but we really only want updates when data is updated
+    paths:
+      - '.github/workflows/discord-notif.yml'
+      - 'data/**'
+  # Allow manual running from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  broadcast:
+    runs-on: ubuntu-latest
+
+    env:
+      DEBIAN_FRONTEND: noninteractive
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # https://stackoverflow.com/a/59819441
+      - name: output variables
+        id: vars
+        run: |
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "embed_timestamp=$(date +'%Y-%m-%dT%H:%M:%S%z')" >> $GITHUB_OUTPUT
+          echo "refresh_timestamp=$(date +'%s')" >> $GITHUB_OUTPUT
+
+      # TODO:
+      #   - Get info from main branch to make this thing look better
+      #   - Use raw JSON file so we can add a CTA button for visiting the site
+      - name: send webhook payload
+        uses: tsickert/discord-webhook@v6.0.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
+          wait: true
+          username: bracketbot
+          avatar-url: 'https://files.catbox.moe/1dcdqz.jpg'
+          embed-author-name: 'the bracket was updated!'
+          embed-title: 'click here to visit the bracket online!'
+          embed-url: 'https://bracket.podaboutli.st?refresh=${{ steps.vars.outputs.refresh_timestamp }}'
+          embed-color: 14234527
+          embed-image-url: 'https://bracket.podaboutli.st/img/branding/card.jpg?refresh=${{ steps.vars.outputs.refresh_timestamp }}'
+          embed-timestamp: ${{ steps.vars.outputs.embed_timestamp }}
