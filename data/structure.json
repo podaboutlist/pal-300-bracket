@@ -484,7 +484,7 @@
 														"winner": 4
 													}
 												},
-												"winner": -1
+												"winner": 4
 											}
 										},
 										"winner": -1
@@ -536,7 +536,7 @@
 														"winner": 79
 													}
 												},
-												"winner": -1
+												"winner": 79
 											},
 											"96": {
 												"entries": {
@@ -559,7 +559,7 @@
 														"winner": 19
 													}
 												},
-												"winner": -1
+												"winner": 33
 											}
 										},
 										"winner": -1
@@ -596,7 +596,7 @@
 														"winner": 121
 													}
 												},
-												"winner": -1
+												"winner": 121
 											},
 											"98": {
 												"entries": {
@@ -619,7 +619,7 @@
 														"winner": 41
 													}
 												},
-												"winner": -1
+												"winner": 21
 											}
 										},
 										"winner": -1
@@ -652,7 +652,7 @@
 														"winner": 209
 													}
 												},
-												"winner": -1
+												"winner": 6
 											},
 											"100": {
 												"entries": {
