@@ -44,12 +44,23 @@
 <body>
 	<header>
 		<h1><span class="pink">yeah so basically I'm thinking that we figure out</span><span class="disney">what the best episode of</span><span class="looney">PODCAST ABOUT LIST</span><span class="is">is</span><span class="spongebob">ok... let's do this shit!!!!!!</span></h1>
+		<label for="toggle-levels">hide
+			<select name="toggle-levels" id="toggle-levels">
+				<option value="-1">[none]</option>
+				<option value="6">first round matches</option>
+				<option value="5">second round matches</option>
+				<option value="4">third round matches</option>
+				<option value="3">quarter-finals</option>
+				<option value="2">semi-finals</option>
+				<option value="1">finals</option>
+			</select>
+		</label>
 	</header>
 
 	<main>
 		<section id="bracket-container">
 			<div id="left"></div>
-			<div id="overall-winner-container">
+			<div id="overall-winner-container" class="hidden">
 				<!-- placeholder -->
 				<div id="overall-winner">
 					<h1>🎉 <u>And the Awesome Lovely Best Episode Ever is...</u> 🎉</h1>

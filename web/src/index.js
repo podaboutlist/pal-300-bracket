@@ -1,5 +1,5 @@
 (async () => {
-	console.info('start it!');
+	console.debug('initializing...');
 
 	// Get episode title, number, YouTube URL from seed
 	function getEpisodeDataFromSeed(seedID) {
@@ -40,12 +40,13 @@
 		return bi;
 	}
 
-	function buildBracketStructure(roundData, roundID) {
+	function buildBracketStructure(roundData, roundID, level) {
 		console.debug("[buildBracketStructure]", "roundID is", roundID, "roundData is", roundData);
 
 		// I'm sure I could template all this crap but idc (^:
 		const group = document.createElement("div");
 		group.classList.add("group");
+		group.classList.add(`level-${level}`);
 
 		const entries = document.createElement("div");
 		entries.classList.add("entries");
@@ -70,12 +71,16 @@
 			roundData["entries"].forEach((seedID) => {
 				entries.appendChild(createBracketItem(seedID));
 			});
+
+			entries.classList.add(`level-${level + 1}`);
 		} else {
 			console.debug("[buildBracketStructure]", "recursing down the tree!");
 
+			++level;
+
 			// recurse down this mf!
 			for (let [k, v] of Object.entries(roundData["entries"])) {
-				const bs = buildBracketStructure(v, k);
+				const bs = buildBracketStructure(v, k, level);
 
 				bs.setAttribute("id", `round-${k}`);
 
@@ -98,6 +103,71 @@
 		elem.innerHTML = `<a href="${epData['link']}" target="_blank" rel="noopener">${epData['title']}</a>`;
 	}
 
+	function hideBracketLevels(level) {
+		const maxLevel = 6;
+
+		// pass -1 to unhide everything
+		if (level < 0) {
+			console.debug("[hideBracketLevels]", "Unhiding all bracket levels...");
+
+			for (let i = 0; i <= maxLevel; ++i) {
+				const toUnhide = document.querySelectorAll(`.level-${i}`);
+
+				console.debug("[hideBracketLevels]", "Unhiding", toUnhide.length, "items from level", i);
+
+				toUnhide.forEach((el) => {
+					el.classList.remove("hidden");
+				});
+			}
+
+			console.debug("[hideBracketLevels]", "Done unhiding all bracket levels!");
+
+			document.documentElement.style.setProperty("--bracket-columns", "15");
+
+			return;
+		}
+
+		const newColumnCount = level * 2 + 1;
+
+		console.debug("[hideBracketLevels]", "Hiding bracket level", level, "...");
+
+		// HACK: this is so freaking stupid but I'm #vibecoding
+		hideBracketLevels(-1);
+
+		// .level-6 is the outermost (earliest) rounds
+		// increasing levels contain previous levels so we don't need to hid everything
+		const toHide = document.querySelectorAll(`.level-${level}`);
+
+		console.debug("[hideBracketLevels]", "Found", toHide.length, "items to hide...");
+
+		toHide.forEach((el) => {
+			el.classList.add("hidden");
+		});
+
+		console.debug("[hideBracketLevels]", "Setting --bracket-columns to", newColumnCount, ".");
+
+		document.documentElement.style.setProperty("--bracket-columns", newColumnCount);
+
+		console.debug("[hideBracketLevels]", "Done hiding items from level", level, "!");
+	}
+
+	// --------------------------------------------------------------------------
+	// Everything below this comment is the "main" function :^)
+	// --------------------------------------------------------------------------
+
+	console.info("start it!");
+
+	const hideLevelSelect = document.querySelector("#toggle-levels");
+
+	// Reset this to "none" on page reload
+	hideLevelSelect.value = -1;
+
+	hideLevelSelect.addEventListener("input", (e) => {
+		const v = parseInt(e.target.value);
+		console.debug("[main]", "handling input event for toggle-levels select with value", v);
+		hideBracketLevels(v);
+	})
+
 	// Pass these options to fetch() calls so they work with <link rel="preload" as="fetch"> from the HTML
 	// https://stackoverflow.com/a/63814972/3722806
 	const fetchOpts = {
@@ -107,11 +177,7 @@
 	}
 
 	const bracketStructure = await (await window.fetch("data/structure.min.json", fetchOpts)).json();
-
-	// for testing
 	const episodeData = await (await window.fetch("data/episodes.min.json", fetchOpts)).json();
-	g_episodeData = episodeData;
-	g_bracketStructure = bracketStructure;
 
 	console.debug(episodeData);
 	console.debug(bracketStructure);
@@ -123,16 +189,32 @@
 	const rbc = document.querySelector("#right");
 
 	console.log("[main]", "Populating left side of the bracket...");
-	lbc.appendChild(buildBracketStructure(leftBracketData, "139"));
+	lbc.appendChild(buildBracketStructure(leftBracketData, "139", 0));
 
 	console.log("[main]", "Populating right side of the bracket...");
-	rbc.appendChild(buildBracketStructure(rightBracketData, "140"));
+	rbc.appendChild(buildBracketStructure(rightBracketData, "140", 0));
 
 	// HACK: This shouldn't be hardcoded lol
 	const overallWinnerSID = bracketStructure["141"]["winner"];
 	if (overallWinnerSID > 0) {
 		populateOverallWinner(overallWinnerSID);
 	}
+
+	// if (urlParams.has("hide")) {
+	// 	const hideLevel = parseInt(urlParams.get("hide"));
+
+	// 	switch (hideLevel) {
+	// 		case 1:
+	// 			const elems = document.querySelectorAll(".level-6");
+	// 			elems.forEach((el) => {
+	// 				el.classList.add("hidden");
+	// 			})
+	// 			break;
+
+	// 		default:
+	// 			break;
+	// 	}
+	// }
 
 	// HACK: yeah this looks like cheeks on phones right now. let's make the alert
 	// look like cheeks too
