@@ -2,9 +2,67 @@
 	--min-width: 1400px;
 
 	/* TODO: Figure out why these lines don't line up. what the heck!!! */
-	--bracket-border: 2px solid #000;
+	--bracket-border: 2px solid var(--c-text);
 
 	--bracket-columns: 15;
+
+	--c-rosewater: #dc8a78;
+	--c-flamingo: #dd7878;
+	--c-pink: #ea76cb;
+	--c-mauve: #8839ef;
+	--c-red: #d20f39;
+	--c-maroon: #e64553;
+	--c-peach: #fe640b;
+	--c-yellow: #df8e1d;
+	--c-green: #40a02b;
+	--c-teal: #179299;
+	--c-sky: #04a5e5;
+	--c-sapphire: #209fb5;
+	--c-blue: #1e66f5;
+	--c-lavender: #7287fd;
+	--c-text: #4c4f69;
+	--c-subtext-0: #6c6f85;
+	--c-subtext-1: #5c5f77;
+	--c-overlay-0: #9ca0b0;
+	--c-overlay-1: #8c8fa1;
+	--c-overlay-2: #7c7f93;
+	--c-surface-0: #ccd0da;
+	--c-surface-1: #bcc0cc;
+	--c-surface-2: #acb0be;
+	--c-base: #eff1f5;
+	--c-mantle: #e6e9ef;
+	--c-crust: #dce0e8;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--c-rosewater: #f2d5cf;
+		--c-flamingo: #eebebe;
+		--c-pink: #f4b8e4;
+		--c-mauve: #ca9ee6;
+		--c-red: #e78284;
+		--c-maroon: #ea999c;
+		--c-peach: #ef9f76;
+		--c-yellow: #e5c890;
+		--c-green: #a6d189;
+		--c-teal: #81c8be;
+		--c-sky: #99d1db;
+		--c-sapphire: #85c1dc;
+		--c-blue: #8caaee;
+		--c-lavender: #babbf1;
+		--c-text: #c6d0f5;
+		--c-subtext-0: #a5adce;
+		--c-subtext-1: #b5bfe2;
+		--c-overlay-0: #737994;
+		--c-overlay-1: #838ba7;
+		--c-overlay-2: #949cbb;
+		--c-surface-0: #414559;
+		--c-surface-1: #51576d;
+		--c-surface-2: #626880;
+		--c-base: #303446;
+		--c-mantle: #292c3c;
+		--c-crust: #232634;
+	}
 }
 
 * {
@@ -14,6 +72,9 @@
 html, body {
 	margin: 0;
 	padding: 0;
+
+	color: var(--c-text);
+	background-color: var(--c-base);
 }
 
 body {
@@ -40,16 +101,21 @@ header h1 {
 
 	max-width: 40%;
 
-	margin: 0;
+	margin: 1rem 0;
 	padding: 0;
-	padding-bottom: 1rem;
-
-	border-bottom: var(--bracket-border);
 }
 
 header h1 span {
 	display: block;
 	text-align: center;
+}
+
+header hr {
+	width: 50%;
+}
+
+header hr:first-of-type {
+	margin-top: 0;
 }
 
 footer {
@@ -82,7 +148,7 @@ footer a:active {
 }
 
 a, a:link, a:visited, a:hover, a:focus, a:active {
-	color: #0066cc;
+	color: var(--c-lavender) !important;
 }
 
 /* 15 columns, 38 rows */
