@@ -61,6 +61,7 @@ footer {
 
 footer ul {
 	list-style-type: none;
+	padding-left: 0;
 }
 
 footer ul li {
@@ -93,12 +94,7 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 	justify-content: space-between;
 }
 
-#left {
-	display: flex;
-	flex-direction: column;
-}
-
-#right {
+#left, #right {
 	display: flex;
 	flex-direction: column;
 }
@@ -225,4 +221,62 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 
 .hidden {
 	display: none !important;
+}
+
+/**
+ * I am not responsible for anything below this comment. I am normal. I am nice.
+ */
+
+.drilled-6 .level-5 .winner-whitespace,
+.drilled-5 .level-4 .winner-whitespace,
+.drilled-4 .level-3 .winner-whitespace,
+.drilled-3 .level-2 .winner-whitespace,
+.drilled-2 .level-1 .winner-whitespace {
+	display: none;
+}
+
+.drilled-6 .level-5 .winner,
+.drilled-5 .level-4 .winner,
+.drilled-4 .level-3 .winner,
+.drilled-3 .level-2 .winner,
+.drilled-2 .level-1 .winner {
+	height: unset;
+	max-height: unset;
+	min-height: unset;
+}
+
+.drilled-6 .level-5 > .entries,
+.drilled-5 .level-4 > .entries,
+.drilled-4 .level-3 > .entries,
+.drilled-3 .level-2 > .entries,
+.drilled-2 .level-1 > .entries {
+	display: none;
+}
+
+.drilled-6 .level-4 .level-5:last-of-type,
+.drilled-5 .level-3 .level-4:last-of-type,
+.drilled-4 .level-2 .level-3:last-of-type,
+.drilled-3 .level-1 .level-2:last-of-type {
+	margin-bottom: 2rem;
+}
+
+.drilled-6 .level-4 .level-5:first-of-type .bracket-item,
+.drilled-5 .level-3 .level-4:first-of-type .bracket-item,
+.drilled-4 .level-2 .level-3:first-of-type .bracket-item,
+.drilled-3 .level-1 .level-2:first-of-type .bracket-item {
+	border-top: var(--bracket-border);
+}
+
+.drilled-6 #left .level-4 .level-5:first-of-type .bracket-item,
+.drilled-5 #left .level-3 .level-4:first-of-type .bracket-item,
+.drilled-4 #left .level-2 .level-3:first-of-type .bracket-item,
+.drilled-3 #left .level-1 .level-2:first-of-type .bracket-item {
+	border-right: var(--bracket-border) !important;
+}
+
+.drilled-6 #right .level-4 .level-5:first-of-type .bracket-item,
+.drilled-5 #right .level-3 .level-4:first-of-type .bracket-item,
+.drilled-4 #right .level-2 .level-3:first-of-type .bracket-item,
+.drilled-3 #right .level-1 .level-2:first-of-type .bracket-item {
+	border-left: var(--bracket-border) !important;
 }

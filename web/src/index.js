@@ -16,7 +16,8 @@
 
 		bis.setAttribute("data-seed-id", seedID);
 
-		// seedID will be -1 for undeclared winner slots etc.
+		// seedID is 1-indexed (oops lol) so there's nothing at index 0 and we use
+		// -1 to signify no winner
 		if (seedID > 0) {
 			const ed = getEpisodeDataFromSeed(seedID);
 
@@ -104,25 +105,15 @@
 	}
 
 	function hideBracketLevels(level) {
-		const maxLevel = 6;
-
 		// pass -1 to unhide everything
 		if (level < 0) {
-			console.debug("[hideBracketLevels]", "Unhiding all bracket levels...");
+			document.querySelector(":root").style.setProperty("--bracket-columns", "15");
 
-			for (let i = 0; i <= maxLevel; ++i) {
-				const toUnhide = document.querySelectorAll(`.level-${i}`);
-
-				console.debug("[hideBracketLevels]", "Unhiding", toUnhide.length, "items from level", i);
-
-				toUnhide.forEach((el) => {
-					el.classList.remove("hidden");
-				});
-			}
-
-			console.debug("[hideBracketLevels]", "Done unhiding all bracket levels!");
-
-			document.documentElement.style.setProperty("--bracket-columns", "15");
+			document.body.classList.forEach((cls) => {
+				if (cls.includes("drilled-")) {
+					document.body.classList.remove(cls);
+				}
+			});
 
 			return;
 		}
@@ -131,22 +122,18 @@
 
 		console.debug("[hideBracketLevels]", "Hiding bracket level", level, "...");
 
-		// HACK: this is so freaking stupid but I'm #vibecoding
-		hideBracketLevels(-1);
-
-		// .level-6 is the outermost (earliest) rounds
-		// increasing levels contain previous levels so we don't need to hid everything
-		const toHide = document.querySelectorAll(`.level-${level}`);
-
-		console.debug("[hideBracketLevels]", "Found", toHide.length, "items to hide...");
-
-		toHide.forEach((el) => {
-			el.classList.add("hidden");
-		});
-
 		console.debug("[hideBracketLevels]", "Setting --bracket-columns to", newColumnCount, ".");
 
-		document.documentElement.style.setProperty("--bracket-columns", newColumnCount);
+		document.querySelector(":root").style.setProperty("--bracket-columns", newColumnCount);
+
+		// document.body.classList.add("drilled-down");
+		document.body.classList.forEach((cls) => {
+			if (cls.includes("drilled-") && cls !== `drilled-${level}`) {
+				document.body.classList.remove(cls);
+			}
+		});
+
+		document.body.classList.add(`drilled-${level}`);
 
 		console.debug("[hideBracketLevels]", "Done hiding items from level", level, "!");
 	}
@@ -168,7 +155,8 @@
 		hideBracketLevels(v);
 	})
 
-	// Pass these options to fetch() calls so they work with <link rel="preload" as="fetch"> from the HTML
+	// Pass these options to fetch() calls so they work with
+	// <link rel="preload" as="fetch"> from the HTML
 	// https://stackoverflow.com/a/63814972/3722806
 	const fetchOpts = {
 		method: 'GET',
@@ -200,22 +188,6 @@
 		populateOverallWinner(overallWinnerSID);
 	}
 
-	// if (urlParams.has("hide")) {
-	// 	const hideLevel = parseInt(urlParams.get("hide"));
-
-	// 	switch (hideLevel) {
-	// 		case 1:
-	// 			const elems = document.querySelectorAll(".level-6");
-	// 			elems.forEach((el) => {
-	// 				el.classList.add("hidden");
-	// 			})
-	// 			break;
-
-	// 		default:
-	// 			break;
-	// 	}
-	// }
-
 	// HACK: yeah this looks like cheeks on phones right now. let's make the alert
 	// look like cheeks too
 	// (use a small timeout so the page renders in first)
@@ -225,5 +197,5 @@
 		}
 	}, 100);
 
-	console.info('finished doing literally everything :steamhappy: ');
+	console.info("finished doing literally everything :steamhappy:");
 })();
