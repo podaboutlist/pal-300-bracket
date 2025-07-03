@@ -99,6 +99,7 @@ function watchFiles() {
 	watch('src/*.js', buildJS);
 	watch('src/*.css', minifyCSS);
 	watch('src/*.html', minifyHTML);
+	watch('../data/*.json', minifyJSON);
 }
 
 function serve() {
