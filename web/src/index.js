@@ -98,7 +98,7 @@
 	}
 
 	function populateOverallWinner(seedID) {
-		const elem = document.querySelector("#overall-winner > h2");
+		const elem = document.querySelector("#overall-winner > h1");
 		const epData = getEpisodeDataFromSeed(seedID);
 
 		elem.innerHTML = `<a href="${epData['link']}" target="_blank" rel="noopener">${epData['title']}</a>`;

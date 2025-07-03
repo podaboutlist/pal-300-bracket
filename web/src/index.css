@@ -148,7 +148,7 @@ footer a:active {
 }
 
 a, a:link, a:visited, a:hover, a:focus, a:active {
-	color: var(--c-lavender) !important;
+	color: var(--c-lavender);
 }
 
 /* 15 columns, 38 rows */
@@ -266,20 +266,43 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 
 /* Rainbow spiral, bouncing in and out like the Minecraft splash text, whatever */
 /* TODO: This shit does not align properly at 1400px or smaller */
-#overall-winner-container {
-	align-self: center;
-	position: absolute;
-	left: calc(max(100vw, var(--min-width)) / 2);
+#center {
+	width: calc(max(100vw, var(--min-width)) / var(--bracket-columns));
 
 	text-align: center;
+	overflow-wrap: break-word;
+	hyphens: auto;
 }
 
 #overall-winner {
+	--winner-banner-width: 3;
+
 	position: relative;
-	left: -50%;
-	margin-top: 26rem;
-	padding: 1rem 2rem;
-	background-color: #eee;
+	width: calc(max(100vw, var(--min-width)) / var(--bracket-columns) * var(--winner-banner-width) - 4%);
+	left: -98%;
+	top: 10rem;
+
+	padding: 0.5rem;
+
+	background-image: url('/img/awesome_dog_bg_1024.jpg');
+	background-size: 110%;
+	background-repeat: no-repeat;
+	background-position: 0 50%;
+}
+
+#overall-winner h1,
+#overall-winner h2,
+#overall-winner span,
+#overall-winner p,
+#overall-winner a,
+#overall-winner a:link,
+#overall-winner a:visited {
+	-webkit-text-stroke-width: 1pt;
+	-webkit-text-stroke-color: rgba(0, 0, 0, 0.1);
+
+	color: var(--c-base) !important;
+
+	text-shadow: 0 0 10px #000;
 }
 
 /* TODO: add colors for rounds .level-0 through .level-6 */
@@ -345,4 +368,16 @@ a, a:link, a:visited, a:hover, a:focus, a:active {
 .drilled-4 #right .level-2 .level-3:first-of-type .bracket-item,
 .drilled-3 #right .level-1 .level-2:first-of-type .bracket-item {
 	border-left: var(--bracket-border) !important;
+}
+
+.drilled-4 #bracket-container {
+	padding-bottom: 5rem;
+}
+
+.drilled-3 #bracket-container {
+	padding-bottom: 10rem;
+}
+
+.drilled-2 #bracket-container {
+	padding-bottom: 10rem;
 }
